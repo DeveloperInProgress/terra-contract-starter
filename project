@@ -1,0 +1,33 @@
+specVersion: "0.3.0"
+
+name: "Terra Contract Starter Project"
+version: "1.0.0"
+description: " "
+repository: "https://github.com/subquery/tutorials-frontier-evm-starter"
+
+schema:
+  file: "./schema.graphql"
+
+network:
+  genesisHash: 'q4PIUU/W6KSxGM9wyowkSW+Ij8HuODDeM4USpA2ucWc='
+  endpoint: 'http://terra.dc.thechainhub.com:1317/'
+  chainId: 'columbus-5'
+
+dataSources:
+  - kind: terra/Contracts
+    startBlock: 6779364 
+    processor:
+      file: './dist/terra.js'
+      options:
+        address: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
+    mapping:
+      file: './dist/index.js'
+      handlers:
+        - handler: handleFrontierEvmEvent
+          kind: terra/ContractEvent
+          filter:
+            type: transfer
+        - handler: handleFrontierEvmCall
+          kind: terra/ContractCall
+          filter:
+            function: claim_rewards_and_optionally_unlock

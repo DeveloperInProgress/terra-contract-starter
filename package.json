@@ -1,0 +1,36 @@
+{
+  "name": "frontier-evm-starter-project",
+  "version": "1.0.0",
+  "description": "A basic Frontier EVM example project with an event and call handler. Read more about this at https://doc.subquery.network/create/frontier/. This project can be use as a starting point for developing your SubQuery project",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/subql build",
+    "prepack": "rm -rf dist && npm build",
+    "test": "jest",
+    "codegen": "./node_modules/.bin/subql codegen"
+  },
+  "homepage": "https://github.com/subquery/tutorials-frontier-evm-starter",
+  "repository": "github:subquery/tutorials-frontier-evm-starter",
+  "files": [
+    "dist",
+    "schema.graphql",
+    "project.yaml"
+  ],
+  "author": "Naveen Veluswamy",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@subql/cli": "file:.yalc/@subql/cli",
+    "@subql/contract-processors": "file:.yalc/@subql/contract-processors",
+    "@subql/types-terra": "file:.yalc/@subql/types-terra",
+    "@terra-money/terra.js": "^3.0.8",
+    "@types/node": "^17.0.21",
+    "pino": "^7.8.0",
+    "tslib": "^2.3.1"
+  },
+  "exports": {
+    "terra": "./node_modules/@subql/contract-processors/dist/terra.js"
+  }
+}

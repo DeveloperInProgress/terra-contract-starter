@@ -1,0 +1,23 @@
+type Transfer @entity {
+
+  id: ID! # Transaction hash
+
+  sender: String!
+
+  reciever: String!
+
+  amount: String!
+}
+
+
+type Rewards @entity {
+  id: ID! # Transaction hash
+
+  duration: String!
+
+  withdrawLpStake: String!
+
+  terraswapLpToken: String!
+
+  contractAddress: String!
+}
