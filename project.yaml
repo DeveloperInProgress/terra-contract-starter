@@ -14,20 +14,18 @@ network:
   chainId: 'columbus-5'
 
 dataSources:
-  - kind: terra/Contracts
-    startBlock: 6779364 
-    processor:
-      file: './dist/terra.js'
-      options:
-        address: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
+  - kind: terra/Runtime
+    startBlock: 6837500
     mapping:
       file: './dist/index.js'
       handlers:
-        - handler: handleFrontierEvmEvent
-          kind: terra/ContractEvent
+        - handler: handleEvent
+          kind: terra/EventHandler
           filter:
+            contract: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
             type: transfer
-        - handler: handleFrontierEvmCall
-          kind: terra/ContractCall
+        - handler: handleCall
+          kind: terra/CallHandler
           filter:
+            contract: 'terra1627ldjvxatt54ydd3ns6xaxtd68a2vtyu7kakj'
             function: claim_rewards_and_optionally_unlock
