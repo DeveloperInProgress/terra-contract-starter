@@ -1,24 +1,31 @@
-import {Transfer, Rewards} from "../types";
-import { TerraEvent, TerraCall } from '@subql/types-terra';
-import * as crypto from "crypto";
+import {Transfer, ExecuteMsgs} from "../types";
+import { TerraEvent, TerraMessage } from '@subql/types-terra';
 
 export async function handleEvent(event: TerraEvent): Promise<void> {
-    for(var i = 0; i < event.event["transfer"]["sender"].length; i++) {
-        const idx = crypto.randomBytes(32).toString("hex");
-        const transfer = new Transfer(`${event.txInfo.txhash}-${event.msgIndex}-${idx}`);
-        transfer.sender = event.event["transfer"]["sender"][i];
-        transfer.reciever = event.event["transfer"]["recipient"][i];
-        transfer.amount = event.event["transfer"]["amount"][i];
-        await transfer.save();
+    const idx = `${event.tx.tx.txhash}-${event.msg.idx}-${event.idx}`
+    const transfer = new Transfer(idx);
+    for(const attr of event.event.attributes) {
+        switch(attr.key) {
+            case 'sender':
+                transfer.sender = attr.value;
+                break;
+            case 'recipient':
+                transfer.recipient = attr.value;
+                break;
+            case 'amount':
+                transfer.amount = attr.value;
+                break;
+            default:
+        }
     }
+    await transfer.save();
 }
 
-export async function handleCall(event: TerraCall): Promise<void> {
-    const idx = crypto.randomBytes(32).toString("hex");
-    const rewards = new Rewards(`${event.tx.txhash}-${idx}`);
-    rewards.duration = event.data.execute_msg["claim_rewards_and_optionally_unlock"]["duration"]
-    rewards.withdrawLpStake = event.data.execute_msg["claim_rewards_and_optionally_unlock"]["withdraw_lp_stake"]
-    rewards.terraswapLpToken = event.data.execute_msg["claim_rewards_and_optionally_unlock"]["terraswap_lp_token"]
-    rewards.contractAddress = event.data.contract;
-    await rewards.save();
+export async function handleMessage(msg: TerraMessage): Promise<void> {
+    const idx = `${msg.tx.tx.txhash}-${msg.idx}`;
+    const executeMsg = new ExecuteMsgs(idx);
+    executeMsg.contract = msg.msg.toData()['contract'];
+    executeMsg.sender = msg.msg.toData()['sender'];
+    executeMsg.executeMsg = JSON.stringify(msg.msg.toData()['execute_msg']);
+    await executeMsg.save();
 }
