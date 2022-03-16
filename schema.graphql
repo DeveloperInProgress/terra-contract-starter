@@ -4,20 +4,18 @@ type Transfer @entity {
 
   sender: String!
 
-  reciever: String!
+  recipient: String!
 
   amount: String!
 }
 
 
-type Rewards @entity {
+type ExecuteMsgs @entity {
   id: ID! # Transaction hash
 
-  duration: String!
+  sender: String!
 
-  withdrawLpStake: String!
+  contract: String!
 
-  terraswapLpToken: String!
-
-  contractAddress: String!
+  executeMsg: String!
 }
