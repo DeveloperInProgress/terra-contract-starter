@@ -22,10 +22,14 @@ dataSources:
         - handler: handleEvent
           kind: terra/EventHandler
           filter:
-            contract: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
             type: transfer
-        - handler: handleCall
-          kind: terra/CallHandler
+            messageFilter:
+              type: '/terra.wasm.v1beta1.MsgExecuteContract'
+              values:
+                contract: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
+        - handler: handleMessage
+          kind: terra/MessageHandler
           filter:
-            contract: 'terra1627ldjvxatt54ydd3ns6xaxtd68a2vtyu7kakj'
-            function: claim_rewards_and_optionally_unlock
+            type: '/terra.wasm.v1beta1.MsgExecuteContract'
+            values: 
+              contract: 'terra1j66jatn3k50hjtg2xemnjm8s7y8dws9xqa5y8w'
