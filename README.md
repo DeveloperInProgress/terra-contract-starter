@@ -2,16 +2,16 @@
 
 
 The Starter Package is an example that you can use as a starting point for developing your SubQuery project.
-A SubQuery package defines which data The SubQuery will index from the Substrate blockchain, and how it will store it. 
+A SubQuery package defines which data The SubQuery will index from the Substrate blockchain, and how it will store it.
 
 ## Preparation
 
 #### Environment
 
-- [Typescript](https://www.typescriptlang.org/) are required to compile project and define types.  
+- [Typescript](https://www.typescriptlang.org/) are required to compile project and define types.
 
 - Both SubQuery CLI and generated Project have dependencies and require [Node](https://nodejs.org/en/).
-     
+
 
 #### Install the SubQuery CLI
 
@@ -48,8 +48,8 @@ In the starter package, we have provided a simple example of project configurati
 - The GraphQL Schema in `schema.graphql`
 - The Mapping functions in `src/mappings/` directory
 
-For more information on how to write the SubQuery, 
-check out our doc section on [Define the SubQuery](https://doc.subquery.network/define_a_subquery.html) 
+For more information on how to write the SubQuery,
+check out our doc section on [Define the SubQuery](https://doc.subquery.network/define_a_subquery.html)
 
 #### Code generation
 
